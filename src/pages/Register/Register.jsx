@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
 
 
-const Login = () => {
+const Register = () => {
 
-    const handleLogin = e => {
+    const handleRegister = e => {
         e.preventDefault();
 
         // const email = e.target.email.value;
@@ -19,8 +19,20 @@ const Login = () => {
         <div>
             <Navbar></Navbar>
             <div>
-                <h2 className="text-3xl my-10 text-center">Please Login</h2>
-                <form onSubmit={handleLogin} className="md: w-3/4 lg:w-1/2 mx-auto">
+                <h2 className="text-3xl my-10 text-center">Registration Form</h2>
+                <form onSubmit={handleRegister} className="md: w-3/4 lg:w-1/2 mx-auto">
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Full Name</span>
+                        </label>
+                        <input type="text" name="name" placeholder="Your Name" className="input input-bordered" required />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Photo URL</span>
+                        </label>
+                        <input type="text" name="photo" placeholder="Photo URL" className="input input-bordered" required />
+                    </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
@@ -37,13 +49,13 @@ const Login = () => {
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary">Register</button>
                     </div>
                 </form>
-                <p className="text-center mt-4">Do not have an account? <Link className="text-blue-600 font-bold" to= "/register">Register</Link></p>
+                <p className="text-center mt-4">Already have an account? <Link className="text-blue-600 font-bold" to={"/login"}>Login</Link></p>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;
