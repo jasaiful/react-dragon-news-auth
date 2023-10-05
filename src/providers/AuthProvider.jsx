@@ -9,15 +9,19 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
 
+    const [loading, setLoading] = useState(true);
+
     const [user, setUser] = useState(null);
 
     // create user: 
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     // SignIn
     const signIn = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -25,21 +29,23 @@ const AuthProvider = ({ children }) => {
 
     // Logout
     const logOut = () => {
+        setLoading(true);
         return signOut(auth)
-        .then()
-        .catch()
+            .then()
+            .catch()
     }
 
 
     // Manage user by onAuthStateChanged
     useEffect(() => {
-       const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('user in the auth state changed', currentUser);
             setUser(currentUser);
+            setLoading(false);
         });
 
         // clear
-        return() => {
+        return () => {
             unSubscribe();
         }
 
@@ -49,7 +55,8 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
-        createUser, 
+        loading,
+        createUser,
         signIn,
         logOut,
     }
@@ -64,7 +71,5 @@ const AuthProvider = ({ children }) => {
 AuthProvider.propTypes = {
     children: PropTypes.node.isRequired,
 }
-
-
 
 export default AuthProvider;
